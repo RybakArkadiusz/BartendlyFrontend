@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CocktailForm from './CocktailForm';
+
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#2c2d33'
+        }
+    }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <CocktailForm />
+        </ThemeProvider>
+    );
 }
 
 export default App;
