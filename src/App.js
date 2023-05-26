@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CocktailForm from './CocktailForm';
 import ResponsePage1 from './ResponsePage';
+
 
 const theme = createTheme({
     palette: {
@@ -23,18 +24,28 @@ const theme = createTheme({
 });
 
 function App() {
+    const [responseJson, setResponseJson] = useState(null);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<CocktailForm />} />
-                    <Route path="/response" element={<ResponsePage1 />} />
+                    <Route
+                        exact
+                        path="/"
+                        element={<CocktailForm setResponseJson={setResponseJson} />}
+                    />
+                    <Route
+                        path="/response"
+                        element={<ResponsePage1 responseJson={responseJson} />}
+                    />
                 </Routes>
             </Router>
         </ThemeProvider>
     );
 }
+
 
 // Dodany komponent ResponsePage
 function ResponsePage(props) {

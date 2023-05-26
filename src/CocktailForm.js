@@ -52,13 +52,13 @@ const alcoholIdMapping = { "Bourbon": 1, "Scotch": 2, "Rye whisky":3, "Dark rum"
 const nonAlcoholicIngredientIdMapping = { "Orange Juice": 2, "Grapefruit Juice": 8, "Apple Juice":9, "Lime Wedge":10, "Mint":12, "Sugar":11, "Club Soda":13 /* Add other mappings */ };
 const tasteMapping = { "Sweet": "SWEET", "Sour": "SOUR", "Bitter": "BITTER", "Spicy": "SPICY" /* Add other mappings */ };
 
-function CocktailForm() {
+function CocktailForm({setResponseJson}) {
     // Define state for form fields
     const [selectedAlcohols, setSelectedAlcohols] = useState([]);
     const [selectedNonAlcoholicIngredients, setSelectedNonAlcoholicIngredients] = useState([]);
     const [selectedTastes, setSelectedTastes] = useState([]);
     const [submitted, setSubmitted] = useState(false);
-    const [responseJson, setResponseJson] = useState(null);
+    const [responseJson] = useState(null);
 
     // Handle form submission
     const handleSubmit =async (e) => {
@@ -71,18 +71,15 @@ function CocktailForm() {
 
         // Send request to the server
         const response = await fetch(`http://localhost:9090/cocktails/search?alcohols=${alcoholsIds}&flavours=${tastesIds}&nonAlcoholicIngredients=${nonAlcoholicIngredientsIds}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setResponseJson(data);
-                setSubmitted(true);
-            });
+        if (response.ok) {
+            const data = await response.json();
+            setResponseJson(data);
+            setSubmitted(true);
+        } else {
+            console.error('Request failed with status:', response.status);
+        }
+    };
 
-        const data = await response.json();
-
-        setResponseJson(data);
-        setSubmitted(true);
-    }
     const navigate = useNavigate();
     if (submitted) {
         navigate("/response", { state: { response: responseJson } });

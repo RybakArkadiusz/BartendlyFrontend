@@ -1,8 +1,6 @@
 import React from 'react';
 
-function ResponsePage(props) {
-    const responseJson = props.location.state.response;
-
+function ResponsePage({ responseJson }) {
     return (
         <div>
             <h1>JSON:</h1>
