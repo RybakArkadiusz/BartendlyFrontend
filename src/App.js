@@ -3,7 +3,8 @@ import { CssBaseline } from '@mui/material';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CocktailForm from './CocktailForm';
-import ResponsePage1 from './ResponsePage';
+import ResponsePage from './ResponsePage';
+import Tile from "./Tile";
 
 
 const theme = createTheme({
@@ -24,7 +25,7 @@ const theme = createTheme({
 });
 
 function App() {
-    const [responseJson, setResponseJson] = useState(null);
+    const [responseJson, setResponseJson] = useState([]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -38,7 +39,7 @@ function App() {
                     />
                     <Route
                         path="/response"
-                        element={<ResponsePage1 responseJson={responseJson} />}
+                        element={<ResponsePage responseJson={responseJson} />}
                     />
                 </Routes>
             </Router>
@@ -47,16 +48,5 @@ function App() {
 }
 
 
-// Dodany komponent ResponsePage
-function ResponsePage(props) {
-    const responseJson = props.location.state.response;
-
-    return (
-        <div>
-            <h1>JSON:</h1>
-            <pre>{JSON.stringify(responseJson, null, 2)}</pre>
-        </div>
-    );
-}
 
 export default App;
