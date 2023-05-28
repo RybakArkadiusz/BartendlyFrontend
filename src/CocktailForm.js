@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Button, Box, Typography } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
+
 
 const StyledAutocomplete = styled(Autocomplete)`
   & .MuiAutocomplete-root {
@@ -81,9 +82,11 @@ function CocktailForm({setResponseJson}) {
     };
 
     const navigate = useNavigate();
-    if (submitted) {
-        navigate("/response", { state: { response: responseJson } });
-    }
+    useEffect(() => {
+        if (submitted) {
+            navigate("/response", { state: { response: responseJson } });
+        }
+    }, [submitted, responseJson, navigate]);
 
 
     return (
@@ -138,7 +141,18 @@ function CocktailForm({setResponseJson}) {
                 renderInput={(params) => <StyledTextField {...params} label="Tastes" />}
             />
 
-            <Button type="submit" variant="contained">Submit</Button>
+            <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                    backgroundColor: "#38a8c9",
+                    "&:hover": {
+                        backgroundColor: "#297a91",
+                    },
+                }}
+            >
+                Submit
+            </Button>
         </Box>
     );
 }

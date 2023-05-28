@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CocktailForm from './CocktailForm';
 import ResponsePage from './ResponsePage';
-import Tile from "./Tile";
 
 
 const theme = createTheme({
@@ -26,7 +25,6 @@ const theme = createTheme({
 
 function App() {
     const [responseJson, setResponseJson] = useState([]);
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
