@@ -108,6 +108,14 @@ function CocktailForm({setResponseJson}) {
                 Bartendly
             </Typography>
 
+            <style>
+                {`
+        .MuiAutocomplete-paper {
+          background-color: #cccfdb;
+        }
+      `}
+            </style>
+
             <StyledAutocomplete
                 style={{ width: '40%' }}
                 multiple
