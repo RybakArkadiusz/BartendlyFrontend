@@ -24,29 +24,45 @@ function Tile({ cocktail, onClick }) {
     return (
         <Paper elevation={3} sx={{ padding: '20px', margin: '20px', cursor: 'pointer', backgroundColor: '#1c1d21' }} onClick={handleClick}>
             <div style={{ textAlign: 'left' }}>
-                <Typography variant="h4" style={{ color: '#d4b8ff', textAlign: 'center' }}>{name}</Typography>
+                <Typography variant="h4" style={{ color: '#d3d8e0', textAlign: 'center' }}>{name}</Typography>
 
 
                 <Typography variant="body1" style={{ color: '#b3b4c4' }}>
                     <ListItemIcon>
-                        <BuildIcon style={{ color: '#d4b8ff' }}/>
+                        <BuildIcon style={{ color: '#086e55' }}/>
                     </ListItemIcon>
-                    {method}
-                </Typography>
-                <Typography variant="body1" style={{ color: '#b3b4c4' }}>
-
-                    <ListItemIcon>
-                        <LiquorIcon style={{ color: '#d4b8ff' }}/>
-                    </ListItemIcon>
-                    {alcohols.map(item => item.alcohol.name).join(', ')}
+                    {method.charAt(0).toUpperCase() + method.slice(1).toLowerCase()}
                 </Typography>
 
                 <Typography variant="body1" style={{ color: '#b3b4c4' }}>
-                    <ListItemIcon>
-                        <NoDrinksIcon style={{ color: '#d4b8ff' }}/>
-                    </ListItemIcon>
-                    {ingredients.map(item => item.nonAlcoholicIngredient.name).join(', ')}
-            </Typography>
+                    {alcohols.map((item, index) => (
+                        <React.Fragment key={item.alcohol.id}>
+                            {index !== 0 && ', '}
+                            {index === 0 && (
+                                <ListItemIcon>
+                                    <LiquorIcon style={{ color: '#086e55' }}/>
+                                </ListItemIcon>
+                            )}
+                            <span style={{ color: '#b3b4c4' }}>{item.alcohol.name}</span>
+                            <span style={{ color: '#878896', fontSize: '0.8em' }}>{` ${item.quantity}${item.measurementUnit.toLowerCase()}`}</span>
+                        </React.Fragment>
+                    ))}
+                </Typography>
+
+                <Typography variant="body1" style={{ color: '#b3b4c4' }}>
+                    {ingredients.map((item, index) => (
+                        <React.Fragment key={item.nonAlcoholicIngredient.id}>
+                            {index !== 0 && ', '}
+                            {index === 0 && (
+                                <ListItemIcon>
+                                    <NoDrinksIcon style={{ color: '#086e55' }}/>
+                                </ListItemIcon>
+                            )}
+                            <span style={{ color: '#b3b4c4' }}>{item.nonAlcoholicIngredient.name}</span>
+                            <span style={{ color: '#878896', fontSize: '0.8em' }}>{` ${item.quantity}${item.measurementUnit.toLowerCase()}`}</span>
+                        </React.Fragment>
+                    ))}
+                </Typography>
 
 
 
@@ -54,7 +70,7 @@ function Tile({ cocktail, onClick }) {
 
                 <Typography variant="body1" style={{ color: '#b3b4c4' }}>
                     <ListItemIcon>
-                        <RestaurantMenuIcon style={{ color: '#d4b8ff' }}/>
+                        <RestaurantMenuIcon style={{ color: '#086e55' }}/>
                     </ListItemIcon>
 
                     {tastes.join(', ')}
